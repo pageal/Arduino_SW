@@ -2,8 +2,8 @@
 
 
 const int led_pin = 13;
-const int transmit_pin = 8;
-const int receive_pin = 7;
+const int transmit_pin = 7;
+const int receive_pin = 6;
 const int transmit_en_pin = 3;
 
 void setup()
@@ -27,16 +27,16 @@ void loop()
   on_off = !on_off;
   if(on_off == true)
   {
-    msg = msg_prefix + "motion";
+    msg = msg_prefix + "motion " + count;
   }else
   {
-    msg = msg_prefix + "no_motion";
+    msg = msg_prefix + "no_motion" + count;
   }
   
   digitalWrite(led_pin, HIGH); // Flash a light to show transmitting
   vw_send((uint8_t *)msg.c_str(), msg.length());
   vw_wait_tx(); // Wait until the whole message is gone
   digitalWrite(led_pin, LOW);
-  delay(1000);
+  delay(2000);
   count = count + 1;
 }
